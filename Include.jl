@@ -8,8 +8,15 @@ import Pkg
 Pkg.activate(_PATH_TO_ROOT)
 Pkg.instantiate()
 
+#Pkg.add("JuMP")
+#Pkg.add("Clp")
+#Pkg.add(DelimitedFiles)
+#Pkg.add(LinearAlgebra)
+
 # load external packages -
 using GLPK
+#using JuMP
+#using Clp
 using DelimitedFiles
 using LinearAlgebra
 
