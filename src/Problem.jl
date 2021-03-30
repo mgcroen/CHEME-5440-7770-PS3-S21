@@ -41,10 +41,19 @@ function generate_problem_dictionary()
 
 	# Setup the flux bounds array -
 	flux_bounds_array = zeros(number_of_reactions,2)
-	# TODO: update the flux_bounds_array for each reaction in your network
-	# TODO: col 1 => lower bound
-	# TODO: col 2 => upper bound
-	# TODO: each row is a reaction
+	
+	E = 0.01/1000 # [E] in mmol/gDW
+	# since we are assuming max activity, lower bound = upper bound = Vmax = kcat*E
+	flux_bounds_array[1,2] = E*203*3600 #v1, in mmol/gDW-hr
+	flux_bounds_array[2,2] = E*34.5*3600 #v2, in mmol/gDW-hr
+	flux_bounds_array[3,2] = E*249*3600 #v3, in mmol/gDW-hr
+	flux_bounds_array[4,2] = E*88.1*3600 #v4, in mmol/gDW-hr
+	flux_bounds_array[5,2] = E*13.7*3600 #v5, in mmol/gDW-hr
+	flux_bounds_array[6,2] = E*13.7*3600 #v6, in mmol/gDW-hr
+
+	flux_bounds_array[7:26,2] .= 10 #upper bound of bj, in mmol/gDW-hr
+	
+
 
 	# Setup default species bounds array -
 	species_bounds_array = zeros(number_of_species,2)
@@ -56,9 +65,11 @@ function generate_problem_dictionary()
 
 	# Setup the objective coefficient array -
 	objective_coefficient_array = zeros(number_of_reactions)
-	# TODO: update me to maximize Urea production (Urea leaving the virtual box) 
+	# TODO: update me to maximize Urea production (Urea leaving the virtual box)
 	# TODO: if is_minimum_flag = true => put a -1 in the index for Urea export
-	
+	if is_minimum_flag == 1
+		objective_coefficient_array[10] = -1;
+	end
 	
 	# =============================== DO NOT EDIT BELOW THIS LINE ============================== #
 	data_dictionary = Dict{String,Any}()
